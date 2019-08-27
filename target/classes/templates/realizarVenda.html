@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Cadastro de Itens</title>
+
+    <style>
+        scroll-container {
+            display: block;
+            height: 400px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        scroll-page {
+            display: flex;
+            font-size: 1em;
+        }
+
+        .fontSize {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <section class="content-header" th:replace="navbar::navBar"></section>
+    </div>
+
+    <br>
+    <div class="container">
+        <p th:text="${mensagem}"></p>
+
+        <form method="POST" action="/formulario_cadastrarVenda">
+            <div class="form-group">
+                <label for="listaClientes">Selecionar comprador</label>
+                <select class="form-control" id="listaClientes" name="clienteId">
+                    <!-- <option selected>Selecione</option> -->
+                    <option th:each="cliente: ${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}" name="cliente"/>
+                </select>
+            </div>
+
+            <label for="listaClientes">Selecionar itens</label>
+            <scroll-container class="card" style="padding: 1%" id="listaItens">
+                <table th:each="item: ${itens}">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="itensId" th:id="${item.id}" th:value="${item.id}">
+                            <label class="form-check-label fontSize" th:for="${item.id}">
+                                <strong th:text="${item.nome}"></strong>
+                                <span th:text="' | Preço: '+ ${item.preco}"></span>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </scroll-container>
+            <br>
+            <button type="submit" class="btn btn-primary ">Confirmar</button>
+
+
+        </form>
+    </div>
+</body>
+</html>

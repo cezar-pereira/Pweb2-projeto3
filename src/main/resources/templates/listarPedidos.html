@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Cadastro de Itens</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <section class="content-header" th:replace="navbar::navBar"></section>
+    </div>
+
+    <br>
+    <br>
+    <div class="container card">
+            <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Pedido n.</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Data / Hora</th>
+                        <th scope="col">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="pedido : ${pedidos}">
+                        <th scope="row"> <a th:href="@{'/detalhesDoPedido/' + ${pedido.id}}"><span th:text="${pedido.id}"></span></a> </th>
+                        <td><span th:text="${pedido.cliente.nome}"></span></td>
+                        <td><span th:text="${pedido.data}"></span></td>
+                        <td><span th:text="'R$ ' + ${pedido.valor}"></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+    </div>
+</body>
+
+</html>
